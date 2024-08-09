@@ -28,7 +28,7 @@ namespace ClickBurger.Models
 
         [Required (ErrorMessage ="Informe o preço do hamburguer")]
         [Display(Name = "Preço")]
-        [Column(TypeName ="decimal (10,2")]//definindo o tipo e a precisão
+        [Column(TypeName ="decimal (10,2)")]//definindo o tipo e a precisão
         [Range(1,999.99,ErrorMessage = "O preço deve estar entre 1 e 999,99")]
         public decimal Preco {  get; set; }
 

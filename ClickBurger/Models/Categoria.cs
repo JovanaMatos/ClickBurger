@@ -15,7 +15,7 @@ namespace ClickBurger.Models
 
         [StringLength(200, ErrorMessage = "O tamanho máximo é 100 caracteres")]//aqui defino o tamanho max com uma msg de erro
         [Required(ErrorMessage = "Informe a descrição da categoria")]//definindo que este campo seja obrigatório e not null no campo
-        [Display(Name = "Nome")]//apliquei para exibir o atributo nome
+        [Display(Name = "Descricao")]//apliquei para exibir o atributo nome
         public string Descricao { get; set; }
 
 
