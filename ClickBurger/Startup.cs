@@ -1,4 +1,6 @@
 ﻿using ClickBurger.Context;
+using ClickBurger.Repositories;
+using ClickBurger.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClickBurger;
@@ -16,7 +18,12 @@ public class Startup
     {
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+        services.AddTransient<IHamburguerRepository, HamburguerRepository>();
+        services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+
         services.AddControllersWithViews();
+
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
