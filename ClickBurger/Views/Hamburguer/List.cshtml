@@ -1,0 +1,26 @@
+﻿@model HamburguerListViewModel
+
+
+
+
+<div>
+    <h1 style="text-align:center;">@Model.CategoriaAtual</h1>
+</div>
+
+
+<hr />
+
+
+<div class="container">
+    <div class="row">
+        @foreach (var hamb in Model.Hamburguer)
+        {
+            <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
+                <p><img src="@hamb.ImagemUrl" class="img-fluid"></p>
+                <h3>Preço : @hamb.Preco.ToString("c")</h3>
+                <h4>@hamb.Nome</h4>
+                <p>@hamb.DescricaoCurta</p>
+            </div>
+        }
+    </div>
+</div>
