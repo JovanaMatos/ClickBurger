@@ -1,4 +1,5 @@
 ﻿using ClickBurger.Context;
+using ClickBurger.Models;
 using ClickBurger.Repositories;
 using ClickBurger.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,6 @@ public class Startup
 
     public IConfiguration Configuration { get; }
 
-    // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddDbContext<AppDbContext>(options =>
@@ -21,12 +21,16 @@ public class Startup
 
         services.AddTransient<IHamburguerRepository, HamburguerRepository>();
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));//a cada request e instancia diferente
 
         services.AddControllersWithViews();
 
+        services.AddMemoryCache();
+        services.AddSession();
+
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
@@ -36,7 +40,6 @@ public class Startup
         else
         {
             app.UseExceptionHandler("/Home/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
         app.UseHttpsRedirection();
@@ -50,6 +53,12 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
+       
+            endpoints.MapControllerRoute(
+                name: "categoriaFiltro",
+                pattern: "Hamburguer/{action}/{categoria?}",
+                defaults: new { Controller = "Hamburguer", action = "List"});
+
             endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

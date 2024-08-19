@@ -1,18 +1,31 @@
 ﻿using ClickBurger.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using ClickBurger.Repositories.Interfaces;
+
+using ClickBurger.ViewModels;
 
 namespace ClickBurger.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+       
+        private readonly IHamburguerRepository _hamburguerRepository;
 
-    
+        public HomeController(IHamburguerRepository hamburguerRepository)
+        {
+            _hamburguerRepository = hamburguerRepository;
+        }
+
         public IActionResult Index()
         {
+            var homeViewModel = new HomeViewModel
+            {
+                HamburguersPreferido = _hamburguerRepository.HamburgueresPreferidos
+            };
+
    
-            return View();
+            return View(homeViewModel);
         }
 
  

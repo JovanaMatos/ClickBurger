@@ -9,6 +9,7 @@ namespace ClickBurger.Context
 
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Hamburguer> Hamburgueres { get; set; }
+        public DbSet<CarrinhoCompraItem> CarrinhoCompraItens { get; set; }
     }
 
 }
