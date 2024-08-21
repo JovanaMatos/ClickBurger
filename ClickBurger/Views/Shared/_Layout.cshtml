@@ -13,6 +13,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/lanchemac2.png" widht="100" height="100" />
                     ClickBurger
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -25,7 +26,12 @@
                    @*  <a class="nav-link text-light" asp-area="" asp-controller="Hamburguer" asp-action="List">Hamburgueres</a> *@
                     <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     <a class="nav-link text-light" asp-area="" asp-controller="Contato" asp-action="Index">Contato</a>
-               
+                    <form class="navbar-form navbar-right" asp-controller="Hamburguer" asp-action="Search" method="get">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Procurar produto" name="searchString" value="@ViewData["searchString"]">
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </nav>

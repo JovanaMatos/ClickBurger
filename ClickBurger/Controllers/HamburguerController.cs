@@ -46,5 +46,33 @@ namespace ClickBurger.Controllers
             var hamburguer = _hamburguerRepository.Hamburgueres.FirstOrDefault(l => l.HamburguerId == hamburguerId);
             return View(hamburguer);
         }
+
+        public ViewResult Search(string searchString)
+        {
+            IEnumerable<Hamburguer> hamburguer;
+            string categoriaAtual = string.Empty;
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                hamburguer = _hamburguerRepository.Hamburgueres.OrderBy(p => p.HamburguerId);
+                categoriaAtual = "Todos os Hamburgueres";
+            }
+            else
+            {
+                hamburguer = _hamburguerRepository.Hamburgueres
+                          .Where(p => p.Nome.ToLower().Contains(searchString.ToLower()));
+
+                if (hamburguer.Any())
+                    categoriaAtual = "Hamburgueres";
+                else
+                    categoriaAtual = "Nenhum hamburguer foi encontrado";
+            }
+
+            return View("~/Views/Hamburguer/List.cshtml", new HamburguerListViewModel
+            {
+                Hamburguer = hamburguer,
+                CategoriaAtual = categoriaAtual
+            });
+        }
     }
 }
