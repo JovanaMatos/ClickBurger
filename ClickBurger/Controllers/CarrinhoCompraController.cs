@@ -2,6 +2,7 @@
 using ClickBurger.Repositories.Interfaces;
 using ClickBurger.Models;
 using ClickBurger.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClickBurger.Controllers
 {
@@ -30,6 +31,8 @@ namespace ClickBurger.Controllers
 
             return View(carrinhoCompraVM);
         }
+
+        [Authorize]
         public IActionResult AdicionarItemNoCarrinhoCompra(int hamburguerId)
         {
             var hamburguerSelecionado = _hamburguerRepository.Hamburgueres
@@ -42,6 +45,7 @@ namespace ClickBurger.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]//apenas users logados
         public IActionResult RemoverItemDoCarrinhoCompra(int hamburguerId)
         {
             var hamburguerSelecionado = _hamburguerRepository.Hamburgueres
