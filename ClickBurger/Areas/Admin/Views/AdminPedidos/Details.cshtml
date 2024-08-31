@@ -80,6 +80,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.PedidoId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.PedidoId" class="btn btn-primary">Editar</a> 
+        <a asp-action="Index" class="btn btn-outline-info">Retornar</a>
+    </div>
+
 </div>

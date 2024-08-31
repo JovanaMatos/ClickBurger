@@ -1,10 +1,12 @@
-﻿using ClickBurger.Context;
+﻿using ClickBurger.Areas.Admin.Sevircos;
+using ClickBurger.Context;
 using ClickBurger.Models;
 using ClickBurger.Repositories;
 using ClickBurger.Repositories.Interfaces;
 using ClickBurger.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 
 namespace ClickBurger;
 public class Startup
@@ -25,6 +27,11 @@ public class Startup
              .AddEntityFrameworkStores<AppDbContext>()
              .AddDefaultTokenProviders();
 
+        services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Home/AccessDenied");
+
+        services.Configure<ConfigurationImagens>(Configuration.GetSection("ConfigurationPastaImagens"));
+
+
 
         services.Configure<IdentityOptions>(options =>
         {
@@ -41,6 +48,7 @@ public class Startup
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
         services.AddTransient<IPedidoRepository, PedidoRepository>();
         services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+        services.AddScoped<RelatorioVendasServicos>();
 
         services.AddAuthorization(options =>
         {
@@ -55,6 +63,12 @@ public class Startup
         services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));//a cada request e instancia diferente
 
         services.AddControllersWithViews();
+
+        services.AddPaging(options =>
+        {
+            options.ViewName = "Bootstrap4";
+            options.PageParameterName = "pageindex";
+        });
 
         services.AddMemoryCache();
         services.AddSession();

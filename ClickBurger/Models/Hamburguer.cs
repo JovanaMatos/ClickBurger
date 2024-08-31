@@ -9,7 +9,7 @@ namespace ClickBurger.Models
         [Key]
         public int HamburguerId { get; set; }
         [Required(ErrorMessage ="O nome do lanche deve ser informado")]
-        [Display (Name = "Nome do Lanche")]
+        [Display (Name = "Nome do Hamburguer")]
         [StringLength(80, MinimumLength =10, ErrorMessage ="O {0} deve ter no minimo {1} e no máximo {2}")] //stringLength permite eu defini a quantidade max e minima
         public string Nome { get; set; }
 
@@ -45,6 +45,7 @@ namespace ClickBurger.Models
         [Display(Name = "Estoque")]
         public bool EmEstoque { get; set; }
 
+        [Display(Name = "Categorias")]
         public int CategoriaId { get; set; } //definindo o relacionamento
         public virtual Categoria Categoria { get; set; }
 

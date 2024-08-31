@@ -1,13 +1,29 @@
-﻿@model IEnumerable<ClickBurger.Models.Hamburguer>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ClickBurger.Models.Hamburguer>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Hamburgueres</h1>
+
+<form method="get" class="form-inline">
+
+    <input name="filter" class="form-control" placeholder="filtro"
+           value="@Model.RouteValue["Filter"]" />
+         
+
+    <button  type="submit" class="btn btn-info"> Procurar</button>
+  
+</form>
+<br />
+
+Total de Lanches : @Model.TotalRecordCount
+<div>
+    <vc:pager paging-list="@Model"></vc:pager>
+</div>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Criar hamburguer</a>
 </p>
 <table class="table">
     <thead>
@@ -18,18 +34,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.DescricaoCurta)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescricaoDetalhada)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Preco)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagemUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagemThumbnaiUrl)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.IsHamburguerPreferido)
             </th>
@@ -43,41 +52,35 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescricaoCurta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescricaoDetalhada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Preco)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagemUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagemThumbnaiUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsHamburguerPreferido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmEstoque)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.HamburguerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.HamburguerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.HamburguerId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DescricaoCurta)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preco)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsHamburguerPreferido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmEstoque)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.HamburguerId">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.HamburguerId">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.HamburguerId">Excluir</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
